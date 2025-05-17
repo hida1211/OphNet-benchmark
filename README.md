@@ -21,6 +21,15 @@
 </p>
 
 ------------------------------------
+## Getting Started on Colab
+
+Clone this repository and move into the working directory:
+```bash
+!git clone https://github.com/hida1211/OphNet-benchmark.git
+```
+All commands below assume the code lives in `/content/OphNet-benchmark`.
+
+------------------------------------
 ## Dataset Preparation
 ### Directory Structure
 ```
