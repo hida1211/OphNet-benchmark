@@ -60,6 +60,38 @@
 |TriDet|VideoMAEv2|47.32|44.68|40.44|35.27|29.45|39.43|
 
 
+### Experimental Setup
+The above results are produced using the officially provided training and
+validation splits described in
+`dataset/tal_annotations/OphNet2024_phase.json` and
+`dataset/tal_annotations/OphNet2024_operation.json`. Instead of raw frames, all
+models operate on video features extracted with **VideoMAE V2**. These features
+can be downloaded via `bash data_processing/download.sh` (set
+`allow_patterns='Features/**'`) or generated using the script
+`backbone/videomaev2/extract_dataset_feat.sh`. Each resulting `.pkl` file is
+stored under `dataset/features/videomae` and was produced with
+
+```
+model: vit_giant_patch14_224
+feat_stride: 16
+input_dim: 1408
+```
+
+For each method we adopt the configuration files in `talnets/*/configs`. Key
+hyperparameters are summarised below:
+
+| Parameter | ActionFormer | TriDet |
+|-----------|-------------|--------|
+| epochs | 30 | 20 |
+| learning rate | 1e-4 | 1e-4 |
+| batch size | 2 | 2 |
+| weight decay | 0.05 | 0.025 |
+| max sequence length | 2304 | 2304 |
+
+Additional options such as dataset paths can be found in the corresponding YAML
+files (`medical_videomae_phase.yaml` and `medical_videomae_operation.yaml`).
+
+
 
 
 ## Installation
