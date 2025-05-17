@@ -36,19 +36,19 @@ frames are under `/content/drive/MyDrive/kaggle/APTOS/val2_videos/aptos_val2/fra
 The reference implementation is available at [APTOS2025_OphNet](https://github.com/minghu0830/APTOS2025_OphNet).
 Clone the repository and install the required packages:
 ```bash
-!git clone https://github.com/minghu0830/APTOS2025_OphNet.git /content/APTOS2025_OphNet
-!pip install -r /content/APTOS2025_OphNet/requirements.txt
+!git clone https://github.com/minghu0830/APTOS2025_OphNet.git /content/OphNet-benchmark
+!pip install -r /content/OphNet-benchmark/baselines/task2/requirements.txt
 ```
 
 ## 3. Training
 
-1. The baseline repository expects the dataset in `APTOS2025_OphNet/dataset`.
+1. The baseline repository expects the dataset in `OphNet-benchmark/dataset`.
    If your data lives elsewhere (e.g. on Google Drive), create a symbolic link or
    pass the absolute path when launching `train.py`:
 ```bash
-!ln -s /content/drive/MyDrive/kaggle/APTOS /content/APTOS2025_OphNet/dataset
+!ln -s /content/drive/MyDrive/kaggle/APTOS /content/OphNet-benchmark/dataset
 # or
-!python /content/APTOS2025_OphNet/train.py --cfg /content/APTOS2025_OphNet/configs/cataract_phase.yaml \
+!python /content/OphNet-benchmark/train.py --cfg /content/OphNet-benchmark/configs/cataract_phase.yaml \
     --data /content/drive/MyDrive/kaggle/APTOS
 ```
    In `configs/cataract_phase.yaml` set the paths explicitly if needed:
@@ -76,7 +76,7 @@ Use the `--dry-run` flag to train only on the seven example videos listed above.
 
 After training, run inference on the validation set:
 ```bash
-!python /content/APTOS2025_OphNet/infer.py --cfg /content/APTOS2025_OphNet/configs/cataract_phase.yaml --ckpt <path-to-checkpoint>
+!python /content/OphNet-benchmark/infer.py --cfg /content/OphNet-benchmark/configs/cataract_phase.yaml --ckpt <path-to-checkpoint>
 ```
 Append a new column named `Predict_phase_id` to `aptos_val2.csv` and fill in the predicted phase ID for each frame. Submit this CSV file.
 
