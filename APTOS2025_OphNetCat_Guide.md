@@ -47,13 +47,24 @@ Clone this repository and install the required packages using the requirements f
 ```bash
 !ln -s /content/drive/MyDrive/kaggle/APTOS /content/OphNet-benchmark/dataset
 ```
+   If your feature directory has a different name, link it to `dataset/features/videomae`:
+```bash
+!ln -s /content/drive/MyDrive/kaggle/APTOS/features_vmae224_b \
+      /content/OphNet-benchmark/dataset/features/videomae
+```
    Then launch the TriDet trainer:
 ```bash
 !python /content/OphNet-benchmark/baselines/task2/talnets/TriDet/train.py \
     --config /content/OphNet-benchmark/baselines/task2/talnets/TriDet/configs/medical_videomae_phase.yaml \
-    --output baseline
+   --output baseline
 ```
    Edit the configuration file if your dataset paths differ.
+2. Convert the CSV annotations into the JSON format expected by TriDet:
+```bash
+!python /content/OphNet-benchmark/data_processing/csv_to_tridet_json.py \
+  --csv /content/drive/MyDrive/kaggle/APTOS/APTOS_train-val_annotation.csv \
+  --out /content/OphNet-benchmark/baselines/task2/dataset/tal_annotations/OphNet2024_phase.json
+```
 
 
 ## 4. Quick Feature Training
