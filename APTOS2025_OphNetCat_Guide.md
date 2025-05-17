@@ -4,14 +4,32 @@ This document summarizes how to obtain the APTOS2025 OphNet-Cat dataset and how 
 
 ## 1. Downloading the Dataset
 
-The cataract subset of the OphNet dataset is hosted on [HuggingFace](https://huggingface.co/datasets/xioamiyh/APTOS2025_OphNet-Cat). Due to its large size you can also download from the OneDrive mirror:
+The cataract subset of the OphNet dataset is hosted on [HuggingFace](https://huggingface.co/datasets/xioamiyh/APTOS2025_OphNet-Cat). You can also download from the OneDrive mirror if preferred:
 <https://asiateleophth-my.sharepoint.com/:f:/g/personal/secretariat_asiateleophth_org/EosodiUKJjJDgVnDlbKlu2UB0Lkh1gMOkQPeulvF7DlOxA?e=AILLxk>
 
-Use the HuggingFace CLI to download:
+Use the HuggingFace CLI to download when needed:
 ```bash
 huggingface-cli download --repo-type dataset xioamiyh/APTOS2025_OphNet-Cat --local-dir ./APTOS2025_OphNet-Cat
 ```
-The provided `aptos_val2.csv` file contains 44,895 frames used for validation.
+
+If you already have the data on Google Drive, the raw training videos reside in
+`/content/drive/MyDrive/kaggle/APTOS/aptos_videos` (e.g.
+`case_0012.mp4`).  The same content is also available as split archives
+`/content/drive/MyDrive/kaggle/APTOS/APTOS_train-val/aptos_ophnet.tar.gz.00`
+to `aptos_ophnet.tar.gz.24`.  Pre-computed VideoMAE-base features are stored in
+`/content/drive/MyDrive/kaggle/APTOS/features_vmae224_b/` with names like
+`case_0012.pt`.
+
+Phase annotations for both training and validation are provided in
+`/content/drive/MyDrive/kaggle/APTOS/APTOS_train-val_annotation.csv`.  Training
+and validation videos share the same folders, so use the `split` column in this
+CSV to separate them.  For a quick dry run you can train using only the seven
+videos `case_0985`, `case_0791`, `case_1362`, `case_1475`, `case_1944`,
+`case_0690` and `case_0612`.
+
+The file `aptos_val2.csv` containing frame names for prediction is located at
+`/content/drive/MyDrive/kaggle/APTOS/APTOS_val2.csv`.  The corresponding test
+frames are under `/content/drive/MyDrive/kaggle/APTOS/val2_videos/aptos_val2/frames/`.
 
 ## 2. Baseline Code
 
