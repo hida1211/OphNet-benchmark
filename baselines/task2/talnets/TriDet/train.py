@@ -4,6 +4,8 @@ import os
 import time
 import datetime
 from pprint import pprint
+import shutil
+import glob
 
 # torch imports
 import torch
@@ -15,9 +17,49 @@ from torch.utils.tensorboard import SummaryWriter
 from libs.core import load_config
 from libs.datasets import make_dataset, make_data_loader
 from libs.modeling import make_meta_arch
-from libs.utils import (train_one_epoch, valid_one_epoch, ANETdetection,
-                        save_checkpoint, make_optimizer, make_scheduler,
-                        fix_random_seed, ModelEma)
+from libs.utils import (
+    train_one_epoch,
+    valid_one_epoch,
+    ANETdetection,
+    save_checkpoint,
+    make_optimizer,
+    make_scheduler,
+    fix_random_seed,
+    ModelEma,
+)
+
+
+def prepare_data(feat_src=None, ann_csv=None):
+    """Copy features and convert annotations if provided."""
+    tridet_dir = os.path.dirname(os.path.abspath(__file__))
+    dataset_root = os.path.abspath(os.path.join(tridet_dir, "..", "..", "dataset"))
+
+    # prepare features
+    if feat_src:
+        dest_feat = os.path.join(dataset_root, "features", "videomae")
+        os.makedirs(dest_feat, exist_ok=True)
+        for fname in glob.glob(os.path.join(feat_src, "*.pt")):
+            dpath = os.path.join(dest_feat, os.path.basename(fname))
+            if not os.path.exists(dpath):
+                shutil.copy2(fname, dpath)
+
+    # prepare annotation json
+    if ann_csv:
+        dest_json = os.path.join(
+            dataset_root, "tal_annotations", "OphNet2024_phase.json"
+        )
+        if not os.path.exists(dest_json):
+            import sys
+
+            repo_root = os.path.abspath(
+                os.path.join(tridet_dir, "..", "..", "..", "..")
+            )
+            if repo_root not in sys.path:
+                sys.path.append(repo_root)
+            from data_processing.csv_to_tridet_json import convert
+
+            os.makedirs(os.path.dirname(dest_json), exist_ok=True)
+            convert(ann_csv, dest_json, default_fps=30)
 
 
 ################################################################################
@@ -32,6 +74,9 @@ def main(args):
     else:
         raise ValueError("Config file does not exist.")
     pprint(cfg)
+
+    # ensure dataset is available
+    prepare_data(args.feat_src, args.anno_csv)
 
     # prep for output folder (based on time stamp)
     if not os.path.exists(cfg['output_folder']):
@@ -222,5 +267,9 @@ if __name__ == '__main__':
                         help='name of exp folder (default: none)')
     parser.add_argument('--resume', default='', type=str, metavar='PATH',
                         help='path to a checkpoint (default: none)')
+    parser.add_argument('--feat-src', default=None, type=str,
+                        help='folder containing feature .pt files')
+    parser.add_argument('--anno-csv', default=None, type=str,
+                        help='annotation csv file to convert')
     args = parser.parse_args()
     main(args)
