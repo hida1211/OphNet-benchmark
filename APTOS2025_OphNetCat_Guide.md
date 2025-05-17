@@ -37,7 +37,7 @@ Clone this repository and install the required packages using the requirements f
 ```bash
 !git clone https://github.com/hida1211/OphNet-benchmark.git /content/OphNet-benchmark
 !pip install -r /content/OphNet-benchmark/baselines/task2/requirements.txt
-!python /content/OphNet-benchmark/setup.py build_ext --inplace
+!python /content/OphNet-benchmark/baselines/task2/talnets/TriDet/libs/utils/setup.py install --user
 ```
 
 ## 3. Training
