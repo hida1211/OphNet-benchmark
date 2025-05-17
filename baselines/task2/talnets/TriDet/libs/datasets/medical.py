@@ -33,7 +33,12 @@ class MedicalDataset(Dataset):
     ):
         # self.feat_extactor = feat_folder.split('/')[-1]
         # file path
-        assert os.path.exists(feat_folder) and os.path.exists(json_file)
+        if not (os.path.exists(feat_folder) and os.path.exists(json_file)):
+            raise FileNotFoundError(
+                f"Feature folder {feat_folder} or annotation file {json_file} not found. "
+                "Please download the required files following the instructions in "
+                "baselines/task2/README.md."
+            )
         assert isinstance(split, tuple) or isinstance(split, list)
         assert crop_ratio == None or len(crop_ratio) == 2
         self.feat_folder = feat_folder
