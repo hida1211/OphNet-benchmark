@@ -16,10 +16,8 @@
 
 Part of NMS is implemented in C++. The code can be compiled by
 
-```shell
-cd ./libs/utils
-python setup.py install --user
-cd ../..
+```bash
+!python /content/OphNet-benchmark/baselines/task2/talnets/actionformer/libs/utils/setup.py install --user
 ```
 
 The code should be recompiled every time you update PyTorch.

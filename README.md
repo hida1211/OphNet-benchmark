@@ -78,29 +78,28 @@ OphNet2024
 *  **Label Description**: The table with Chinese and English versions of surgery, phase, and operation names along with their ID mappings: [OphNet2024_Label](https://docs.google.com/spreadsheets/d/1p5lURkth587-lxYwd6eOSmSxPpvIqvyuOKW-4B49PT0/edit?usp=sharing)
 
 *  **HuggingFace Mirror** (optional, if you are in mainland China):
-    ```python
-    export HF_ENDPOINT=https://hf-mirror.com
+    ```bash
+    !export HF_ENDPOINT=https://hf-mirror.com
     ```
 
 * **Download All**:
-    ```python
-    huggingface-cli download --repo-type dataset --resume-download xioamiyh/OphNet2024 --revision main --local-dir ./
+    ```bash
+    !huggingface-cli download --repo-type dataset --resume-download xioamiyh/OphNet2024 --revision main --local-dir /content/OphNet-benchmark
     ```
 
-*  **Selective Download**: 
-    ```python
-    cd ./data_processing
-    bash ./download.sh
+*  **Selective Download**:
+    ```bash
+    !bash /content/OphNet-benchmark/data_processing/download.sh /content/OphNet-benchmark
     ```
 
 *  **Merge and Extract the Archive**:
-    ```python
-    cat OphNet2024_all.tar.gz.* | tar xzvf -
+    ```bash
+    !cat /content/OphNet-benchmark/OphNet2024_all.tar.gz.* | tar xzvf -
     ```
 
 *  **Skip Downloading Trimmed Video** (optional, trimming videos locally with the script):
-    ```python
-    python data_processing/cliper.py
+    ```bash
+    !python /content/OphNet-benchmark/data_processing/cliper.py
     ```
 
 ------------------------------------

@@ -42,10 +42,8 @@ pip install  -r requirements.txt
 
 3. Install NMS
 
-```shell
-cd ./libs/utils
-python setup.py install --user
-cd ../..
+```bash
+!python /content/OphNet-benchmark/baselines/task2/talnets/TriDet/libs/utils/setup.py install --user
 ```
 
 4. Done! We are ready to get start!
