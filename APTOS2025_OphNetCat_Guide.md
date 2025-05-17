@@ -59,7 +59,21 @@ pip install -r requirements.txt
    feature_dir: /content/drive/MyDrive/kaggle/APTOS/features_vmae224_b
    ```
 
-## 4. Inference and Submission
+
+## 4. Quick Feature Training
+
+The script `train_features.py` trains a simple classifier using the pre-extracted VideoMAE features stored on Google Drive and directly generates predictions for `APTOS_val2.csv`.
+
+```bash
+python train_features.py \
+  --annotation /content/drive/MyDrive/kaggle/APTOS/APTOS_train-val_annotation.csv \
+  --features /content/drive/MyDrive/kaggle/APTOS/features_vmae224_b \
+  --val2 /content/drive/MyDrive/kaggle/APTOS/APTOS_val2.csv \
+  --output pred_val2.csv --dry-run
+```
+
+Use the `--dry-run` flag to train only on the seven example videos listed above. Omit it to use the full training set. The resulting `pred_val2.csv` already contains the `Predict_phase_id` column for submission.
+## 5. Inference and Submission
 
 After training, run inference on the validation set:
 ```bash
@@ -67,7 +81,7 @@ python infer.py --cfg configs/cataract_phase.yaml --ckpt <path-to-checkpoint>
 ```
 Append a new column named `Predict_phase_id` to `aptos_val2.csv` and fill in the predicted phase ID for each frame. Submit this CSV file.
 
-## 5. Evaluation Metrics
+## 6. Evaluation Metrics
 
 The official metrics are:
 - **Video-level Accuracy**: average frame accuracy per video.
