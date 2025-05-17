@@ -101,46 +101,40 @@ files (`medical_videomae_phase.yaml` and `medical_videomae_operation.yaml`).
 
 2. Install the required packages by running the following command:
 
-```shell
-pip install  -r requirements.txt
+```bash
+!pip install  -r /content/OphNet-benchmark/baselines/task2/requirements.txt
 ```
 
 3. Install NMS
 
-```shell
-cd ./libs/utils
-python setup.py install --user
-cd ../..
+```bash
+!python /content/OphNet-benchmark/baselines/task2/libs/utils/setup.py install --user
 ```
 
 4. Done! We are ready to get start!
 
 ## Prepare Datasets
 You can direct download the we have extracted
-```shell
-cd ./data_processing
-bash ./download.sh
+```bash
+!bash /content/OphNet-benchmark/data_processing/download.sh /content/OphNet-benchmark
 # set allow_patterns='Features/**'
 ```
 
 then put them into the dataset folder
 
 ```bash
-cd dataset/features
-ln -sT ~/path/to/feature_ophnet/feature ./videomae
+!ln -sT ~/path/to/feature_ophnet/feature /content/OphNet-benchmark/baselines/task2/dataset/features/videomae
 ```
 Or you can extract video features following below steps:
 
 1. Download videos from [OphNet2024](https://huggingface.co/datasets/xioamiyh/OphNet2024
 )
 ```bash
-cd dataset
-ln -sT ~/path/to/OphNet2024/OphNet2024_all ./videos 
+!ln -sT ~/path/to/OphNet2024/OphNet2024_all /content/OphNet-benchmark/baselines/task2/dataset/videos
 ```
 2. Extract the videomaev2 features
 ```bash
-cd backbone/videomaev2
-bash extract_dataset_feat.sh
+!bash /content/OphNet-benchmark/baselines/task2/backbone/videomaev2/extract_dataset_feat.sh
 ```
 
 ## Folder Stucture
@@ -172,29 +166,26 @@ We recommend using TriDet as the baseline due to its better performance.
 
 - train
 ```bash
-cd talnets/TriDet
-python train.py --config ./configs/medical_videomae_phase.yaml --output baseline
-python train.py --config ./configs/medical_videomae_operation.yaml --output baseline
+!python /content/OphNet-benchmark/baselines/task2/talnets/TriDet/train.py --config /content/OphNet-benchmark/baselines/task2/talnets/TriDet/configs/medical_videomae_phase.yaml --output baseline
+!python /content/OphNet-benchmark/baselines/task2/talnets/TriDet/train.py --config /content/OphNet-benchmark/baselines/task2/talnets/TriDet/configs/medical_videomae_operation.yaml --output baseline
 ```
 
 - eval
 ```bash
-python eval.py --config ./configs/medical_videomae_phase.yaml --ckpt ~/path/to/checkpoint
-python eval.py --config ./configs/medical_videomae_operation.yaml --ckpt ~/path/to/checkpoint
+!python /content/OphNet-benchmark/baselines/task2/talnets/TriDet/eval.py --config /content/OphNet-benchmark/baselines/task2/talnets/TriDet/configs/medical_videomae_phase.yaml --ckpt ~/path/to/checkpoint
+!python /content/OphNet-benchmark/baselines/task2/talnets/TriDet/eval.py --config /content/OphNet-benchmark/baselines/task2/talnets/TriDet/configs/medical_videomae_operation.yaml --ckpt ~/path/to/checkpoint
 ```
 
 - log
 ```bash
-cd ckpt
-tensorboard --logdir=./
+!tensorboard --logdir=/content/OphNet-benchmark/baselines/task2/ckpt
 ```
 
 - visualize
 ```bash
-python eval.py --config ./configs/medical_videomae_phase.yaml --ckpt ~/path/to/checkpoint --saveonly
-python eval.py --config ./configs/medical_videomae_operation.yaml --ckpt ~/path/to/checkpoint --saveonly
-cd ../tools
-python visualizer.py
+!python /content/OphNet-benchmark/baselines/task2/talnets/TriDet/eval.py --config /content/OphNet-benchmark/baselines/task2/talnets/TriDet/configs/medical_videomae_phase.yaml --ckpt ~/path/to/checkpoint --saveonly
+!python /content/OphNet-benchmark/baselines/task2/talnets/TriDet/eval.py --config /content/OphNet-benchmark/baselines/task2/talnets/TriDet/configs/medical_videomae_operation.yaml --ckpt ~/path/to/checkpoint --saveonly
+!python /content/OphNet-benchmark/baselines/task2/tools/visualizer.py
 
 ```
 
@@ -202,26 +193,23 @@ python visualizer.py
 
 - train
 ```bash
-cd talnets/actionformer
-python train.py --config ./configs/medical_videomae_phase.yaml --output baseline
-python train.py --config ./configs/medical_videomae_operation.yaml --output baseline
+!python /content/OphNet-benchmark/baselines/task2/talnets/actionformer/train.py --config /content/OphNet-benchmark/baselines/task2/talnets/actionformer/configs/medical_videomae_phase.yaml --output baseline
+!python /content/OphNet-benchmark/baselines/task2/talnets/actionformer/train.py --config /content/OphNet-benchmark/baselines/task2/talnets/actionformer/configs/medical_videomae_operation.yaml --output baseline
 ```
 
 - eval
 ```bash
-python eval.py --config ./configs/medical_videomae_phase.yaml --ckpt ~/path/to/checkpoint
-python eval.py --config ./configs/medical_videomae_operation.yaml --ckpt ~/path/to/checkpoint
+!python /content/OphNet-benchmark/baselines/task2/talnets/actionformer/eval.py --config /content/OphNet-benchmark/baselines/task2/talnets/actionformer/configs/medical_videomae_phase.yaml --ckpt ~/path/to/checkpoint
+!python /content/OphNet-benchmark/baselines/task2/talnets/actionformer/eval.py --config /content/OphNet-benchmark/baselines/task2/talnets/actionformer/configs/medical_videomae_operation.yaml --ckpt ~/path/to/checkpoint
 ```
 
 - log
 ```bash
-cd ckpt
-tensorboard --logdir=./
+!tensorboard --logdir=/content/OphNet-benchmark/baselines/task2/ckpt
 ```
 
 ## Checkpoint
-```shell
-cd ./data_processing
-bash ./download.sh
+```bash
+!bash /content/OphNet-benchmark/data_processing/download.sh /content/OphNet-benchmark
 # set allow_patterns='Checkpoints/**'
 ```
