@@ -43,12 +43,21 @@ pip install -r requirements.txt
 
 ## 3. Training
 
-1. Place the downloaded dataset under `APTOS2025_OphNet/dataset`.
-2. Follow the configuration in the repository to start training. Example commands:
-```bash
-python train.py --cfg configs/cataract_phase.yaml --data ./dataset
-```
-Adjust the configuration file if your dataset path differs.
+1. The baseline repository expects the dataset in `APTOS2025_OphNet/dataset`.
+   If your data lives elsewhere (e.g. on Google Drive), create a symbolic link or
+   pass the absolute path when launching `train.py`:
+   ```bash
+   ln -s /content/drive/MyDrive/kaggle/APTOS APTOS2025_OphNet/dataset
+   # or
+   python train.py --cfg configs/cataract_phase.yaml \
+       --data /content/drive/MyDrive/kaggle/APTOS
+   ```
+   In `configs/cataract_phase.yaml` set the paths explicitly if needed:
+   ```yaml
+   data_root: /content/drive/MyDrive/kaggle/APTOS
+   annotation_file: /content/drive/MyDrive/kaggle/APTOS/APTOS_train-val_annotation.csv
+   feature_dir: /content/drive/MyDrive/kaggle/APTOS/features_vmae224_b
+   ```
 
 ## 4. Inference and Submission
 
