@@ -1,7 +1,11 @@
 #!/bin/bash
 
 #  allow_patterns: OphNet2024_all,OphNet2024_trimmed_operation,OphNet2024_trimmed_phase,Features,Checkpoints
-python -c "
+
+TARGET_DIR=${1:-$(pwd)}
+
+python - "$TARGET_DIR" <<'PY'
+import sys
 from huggingface_hub import snapshot_download
 
 snapshot_download(
@@ -23,8 +27,8 @@ snapshot_download(
 
     # allow_patterns='Features/**',
 
-    local_dir='./'
+    local_dir=sys.argv[1]
 )
-"
+PY
 
 echo "✅ Download complete"
