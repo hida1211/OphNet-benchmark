@@ -7,13 +7,15 @@ from torch.utils.data import Dataset, DataLoader
 
 
 def load_features(path: str) -> torch.Tensor:
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"Feature file not found: {path}")
     data = torch.load(path, map_location='cpu')
     if isinstance(data, dict):
         for key in ['features', 'feature', 'feat', 'feats']:
             if key in data:
                 data = data[key]
                 break
-    return torch.tensor(data)
+    return torch.as_tensor(data)
 
 
 class PhaseDataset(Dataset):
