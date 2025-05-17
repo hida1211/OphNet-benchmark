@@ -34,10 +34,10 @@ frames are under `/content/drive/MyDrive/kaggle/APTOS/val2_videos/aptos_val2/fra
 ## 2. Baseline Code
 
 The reference implementation is available at [APTOS2025_OphNet](https://github.com/minghu0830/APTOS2025_OphNet).
-Clone the repository and install the required packages:
+Clone the repository and install the required packages using the requirements file located in `baselines/task2`:
 ```bash
 !git clone https://github.com/minghu0830/APTOS2025_OphNet.git /content/OphNet-benchmark
-!pip install -r /content/OphNet-benchmark/requirements.txt
+!pip install -r /content/OphNet-benchmark/baselines/task2/requirements.txt
 ```
 
 ## 3. Training
