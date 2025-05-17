@@ -30,6 +30,19 @@ Clone this repository and move into the working directory:
 All commands below assume the code lives in `/content/OphNet-benchmark`.
 
 ------------------------------------
+## Installation
+
+Install the required Python packages and compile the C++ extension:
+
+```bash
+!pip install -r /content/OphNet-benchmark/baselines/task2/requirements.txt
+!python /content/OphNet-benchmark/setup.py build_ext --inplace
+```
+
+The second command builds the `nms_1d_cpu` module used by the temporal
+localization baselines. Re-run it whenever PyTorch is upgraded.
+
+------------------------------------
 ## Dataset Preparation
 ### Directory Structure
 ```
