@@ -1,0 +1,2 @@
+include baselines/task2/talnets/TriDet/libs/utils/csrc/nms_cpu.cpp
+include baselines/task2/talnets/actionformer/libs/utils/csrc/nms_cpu.cpp
