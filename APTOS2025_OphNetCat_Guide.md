@@ -33,30 +33,26 @@ frames are under `/content/drive/MyDrive/kaggle/APTOS/val2_videos/aptos_val2/fra
 
 ## 2. Baseline Code
 
-The reference implementation is available at [APTOS2025_OphNet](https://github.com/minghu0830/APTOS2025_OphNet).
-Clone the repository and install the required packages using the requirements file located in `baselines/task2`:
+Clone this repository and install the required packages using the requirements file located in `baselines/task2`:
 ```bash
-!git clone https://github.com/minghu0830/APTOS2025_OphNet.git /content/OphNet-benchmark
+!git clone https://github.com/hida1211/OphNet-benchmark.git /content/OphNet-benchmark
 !pip install -r /content/OphNet-benchmark/baselines/task2/requirements.txt
 ```
 
 ## 3. Training
 
 1. The baseline repository expects the dataset in `OphNet-benchmark/dataset`.
-   If your data lives elsewhere (e.g. on Google Drive), create a symbolic link or
-   pass the absolute path when launching `train.py`:
+   If your data lives elsewhere (e.g. on Google Drive), create a symbolic link:
 ```bash
 !ln -s /content/drive/MyDrive/kaggle/APTOS /content/OphNet-benchmark/dataset
-# or
-!python /content/OphNet-benchmark/train.py --cfg /content/OphNet-benchmark/configs/cataract_phase.yaml \
-    --data /content/drive/MyDrive/kaggle/APTOS
 ```
-   In `configs/cataract_phase.yaml` set the paths explicitly if needed:
-   ```yaml
-   data_root: /content/drive/MyDrive/kaggle/APTOS
-   annotation_file: /content/drive/MyDrive/kaggle/APTOS/APTOS_train-val_annotation.csv
-   feature_dir: /content/drive/MyDrive/kaggle/APTOS/features_vmae224_b
-   ```
+   Then launch the TriDet trainer:
+```bash
+!python /content/OphNet-benchmark/baselines/task2/talnets/TriDet/train.py \
+    --config /content/OphNet-benchmark/baselines/task2/talnets/TriDet/configs/medical_videomae_phase.yaml \
+    --output baseline
+```
+   Edit the configuration file if your dataset paths differ.
 
 
 ## 4. Quick Feature Training
@@ -74,9 +70,11 @@ The script `train_features.py` trains a simple classifier using the pre-extracte
 Use the `--dry-run` flag to train only on the seven example videos listed above. Omit it to use the full training set. The resulting `pred_val2.csv` already contains the `Predict_phase_id` column for submission.
 ## 5. Inference and Submission
 
-After training, run inference on the validation set:
+After training, evaluate the model on the validation set:
 ```bash
-!python /content/OphNet-benchmark/infer.py --cfg /content/OphNet-benchmark/configs/cataract_phase.yaml --ckpt <path-to-checkpoint>
+!python /content/OphNet-benchmark/baselines/task2/talnets/TriDet/eval.py \
+  --config /content/OphNet-benchmark/baselines/task2/talnets/TriDet/configs/medical_videomae_phase.yaml \
+  --ckpt <path-to-checkpoint>
 ```
 Append a new column named `Predict_phase_id` to `aptos_val2.csv` and fill in the predicted phase ID for each frame. Submit this CSV file.
 
