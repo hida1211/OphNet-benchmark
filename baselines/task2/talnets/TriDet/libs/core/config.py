@@ -1,4 +1,5 @@
 import yaml
+import os
 
 DEFAULTS = {
     # random seed for reproducibility, a large number is preferred
@@ -173,4 +174,18 @@ def load_config(config_file, defaults=DEFAULTS):
         config = yaml.load(fd, Loader=yaml.FullLoader)
     _merge(defaults, config)
     config = _update_config(config)
+
+    # convert dataset paths to absolute paths so that the training script can be
+    # executed from any working directory. Paths in the config are specified
+    # relative to the configuration file location.
+    cfg_dir = os.path.dirname(os.path.abspath(config_file))
+    tridet_root = os.path.dirname(cfg_dir)
+    for key in ["json_file", "feat_folder"]:
+        if key in config.get("dataset", {}):
+            p = config["dataset"][key]
+            if not os.path.isabs(p):
+                config["dataset"][key] = os.path.abspath(
+                    os.path.join(tridet_root, p)
+                )
+
     return config
