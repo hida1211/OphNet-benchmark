@@ -168,9 +168,12 @@ class MedicalDataset(Dataset):
         #                             self.file_prefix + video_item['id'] + self.file_ext)
                 
         if self.file_ext == '.pkl':
-            f=open(filename, 'rb')
-            feats = pickle.load(f)
-            f.close()
+            with open(filename, 'rb') as f:
+                feats = pickle.load(f)
+        elif self.file_ext == '.pt':
+            feats = torch.load(filename, map_location='cpu')
+            if isinstance(feats, torch.Tensor):
+                feats = feats.numpy()
         else:
             feats = np.load(filename).astype(np.float32)
         # feats = np.load(filename).astype(np.float32)
