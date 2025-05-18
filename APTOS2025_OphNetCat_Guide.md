@@ -84,9 +84,14 @@ The script `train_features.py` trains a simple classifier using the pre-extracte
 !python /content/OphNet-benchmark/train_features.py \
   --annotation /content/drive/MyDrive/kaggle/APTOS/APTOS_train-val_annotation.csv \
   --features /content/drive/MyDrive/kaggle/APTOS/features_vmae224_b \
+  --val2-features /content/drive/MyDrive/kaggle/APTOS/features_val2 \
   --val2 /content/drive/MyDrive/kaggle/APTOS/APTOS_val2.csv \
   --output pred_val2.csv --dry-run
 ```
+
+Pass `--val2-features` only if your test set features live in a different
+directory. When omitted, the same folder specified by `--features` is used for
+both training and prediction.
 
 Use the `--dry-run` flag to train only on the seven example videos listed above. Omit it to use the full training set. The resulting `pred_val2.csv` already contains the `Predict_phase_id` column for submission.
 ## 5. Inference and Submission
