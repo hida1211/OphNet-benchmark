@@ -66,6 +66,15 @@ Clone this repository and install the required packages using the requirements f
   --out /content/OphNet-benchmark/baselines/task2/dataset/tal_annotations/OphNet2024_phase.json
 ```
 
+3. Alternatively, you can train the ActionFormer baseline:
+```bash
+!python /content/OphNet-benchmark/baselines/task2/talnets/actionformer/train.py \
+    --config /content/OphNet-benchmark/baselines/task2/talnets/actionformer/configs/medical_videomae_phase.yaml \
+    --output baseline_af
+```
+   This uses the same JSON annotations and feature directory as TriDet. Adjust
+   the configuration file if your paths differ.
+
 
 ## 4. Quick Feature Training
 
@@ -86,6 +95,12 @@ After training, evaluate the model on the validation set:
 ```bash
 !python /content/OphNet-benchmark/baselines/task2/talnets/TriDet/eval.py \
   --config /content/OphNet-benchmark/baselines/task2/talnets/TriDet/configs/medical_videomae_phase.yaml \
+  --ckpt <path-to-checkpoint>
+```
+If you trained ActionFormer instead, run
+```bash
+!python /content/OphNet-benchmark/baselines/task2/talnets/actionformer/eval.py 
+  --config /content/OphNet-benchmark/baselines/task2/talnets/actionformer/configs/medical_videomae_phase.yaml 
   --ckpt <path-to-checkpoint>
 ```
 Append a new column named `Predict_phase_id` to `aptos_val2.csv` and fill in the predicted phase ID for each frame. Submit this CSV file.
