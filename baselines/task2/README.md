@@ -137,6 +137,12 @@ Or you can extract video features following below steps:
 !bash /content/OphNet-benchmark/baselines/task2/backbone/videomaev2/extract_dataset_feat.sh
 ```
 
+If you already have your own features and annotation files, update the
+`json_file` and `feat_folder` fields in the YAML configuration files with the
+absolute paths to your data. Relative paths are resolved with respect to the
+configuration file location, so providing absolute paths allows placing the data
+anywhere on your system.
+
 ## Folder Stucture
 
 Check you folder stucture, it should be like:
