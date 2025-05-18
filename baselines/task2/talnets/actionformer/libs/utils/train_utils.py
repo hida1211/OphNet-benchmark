@@ -56,7 +56,6 @@ def print_model_params(model):
         print(name, param.min().item(), param.max().item(), param.mean().item())
     return
 
-from mamba_ssm.modules.mamba_simple import Mamba
 def make_optimizer(model, optimizer_config):
     """create optimizer
     return a supported optimizer
