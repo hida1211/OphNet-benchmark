@@ -9,7 +9,7 @@ def ffmpeg_extract_subclip(input_file, start_time, end_time, targetname):
     try:
         cmd = [
             'ffmpeg', '-y', '-ss', str(start_time), '-i', input_file,
-            '-to', str(end_time - start_time),
+            '-t', str(end_time - start_time),
             '-c:v', 'libx264', '-c:a', 'aac', '-strict', 'experimental',
             '-avoid_negative_ts', '1', targetname
         ]
