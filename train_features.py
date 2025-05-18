@@ -84,7 +84,9 @@ def predict(model: nn.Module, csv_path: str, feature_dir: str, output_csv: str):
 def main():
     parser = argparse.ArgumentParser(description='Train on features and predict phases')
     parser.add_argument('--annotation', required=True, help='annotation csv path')
-    parser.add_argument('--features', required=True, help='directory with feature .pt files')
+    parser.add_argument('--features', required=True, help='directory with training feature .pt files')
+    parser.add_argument('--val2-features', default=None,
+                        help='directory with val2 feature .pt files (defaults to --features)')
     parser.add_argument('--val2', required=True, help='csv file listing validation frames')
     parser.add_argument('--output', default='pred_val2.csv', help='output csv file')
     parser.add_argument('--epochs', type=int, default=5)
@@ -98,7 +100,8 @@ def main():
     dataset = PhaseDataset(args.annotation, args.features, split='train', limit_videos=subset)
     num_classes = 35
     model = train(dataset, num_classes=num_classes, epochs=args.epochs)
-    predict(model, args.val2, args.features, args.output)
+    val2_feat_dir = args.val2_features or args.features
+    predict(model, args.val2, val2_feat_dir, args.output)
 
 
 if __name__ == '__main__':
