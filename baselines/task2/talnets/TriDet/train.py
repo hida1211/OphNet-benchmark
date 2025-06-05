@@ -29,10 +29,9 @@ from libs.utils import (
 )
 
 
-def prepare_data(feat_src=None, ann_csv=None):
+def prepare_data(dataset_root, feat_src=None, ann_csv=None):
     """Copy features and convert annotations if provided."""
     tridet_dir = os.path.dirname(os.path.abspath(__file__))
-    dataset_root = os.path.abspath(os.path.join(tridet_dir, "..", "..", "dataset"))
 
     # prepare features
     if feat_src:
@@ -75,8 +74,13 @@ def main(args):
         raise ValueError("Config file does not exist.")
     pprint(cfg)
 
+    # resolve dataset root
+    tridet_dir = os.path.dirname(os.path.abspath(__file__))
+    default_root = os.path.abspath(os.path.join(tridet_dir, "..", "..", "dataset"))
+    dataset_root = os.path.abspath(args.dataset_root or default_root)
+
     # ensure dataset is available
-    prepare_data(args.feat_src, args.anno_csv)
+    prepare_data(dataset_root, args.feat_src, args.anno_csv)
 
     # prep for output folder (based on time stamp)
     if not os.path.exists(cfg['output_folder']):
@@ -267,6 +271,8 @@ if __name__ == '__main__':
                         help='name of exp folder (default: none)')
     parser.add_argument('--resume', default='', type=str, metavar='PATH',
                         help='path to a checkpoint (default: none)')
+    parser.add_argument('--dataset-root', default=None, type=str,
+                        help='root directory for dataset (default: dataset/)')
     parser.add_argument('--feat-src', default=None, type=str,
                         help='folder containing feature .pt files')
     parser.add_argument('--anno-csv', default=None, type=str,
