@@ -64,7 +64,8 @@ Clone this repository and install the required packages using the requirements f
 ```bash
 !python /content/OphNet-benchmark/data_processing/csv_to_tridet_json.py \
   --csv /content/drive/MyDrive/kaggle/APTOS/APTOS_train-val_annotation.csv \
-  --out /content/drive/MyDrive/kaggle/APTOS/tal_annotations/OphNet2024_phase.json
+  --out /content/drive/MyDrive/kaggle/APTOS/tal_annotations/OphNet2024_phase.json \
+  --fps-csv /content/drive/MyDrive/kaggle/APTOS/meta/video_fps.csv
 ```
 
 3. Alternatively, you can train the ActionFormer baseline:
@@ -119,4 +120,19 @@ The official metrics are:
 - **Rank Score** = (Video-level Accuracy + Macro F1 Score) / 2.
 
 See the challenge description for full details of how TP, FP and FN are computed.
+
+## 7. Evaluating Predictions
+
+After generating a CSV containing a `Predict_phase_id` column, you can compute
+the official metrics locally using `evaluate_predictions.py`:
+
+```bash
+python evaluate_predictions.py \
+  --annotation /content/drive/MyDrive/kaggle/APTOS/APTOS_train-val_annotation.csv \
+  --pred pred_val2.csv \
+  --out metrics.json
+```
+
+The script prints the Rank Score and saves all metrics to the specified output
+file.
 
