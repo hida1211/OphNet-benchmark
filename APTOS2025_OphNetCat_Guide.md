@@ -63,7 +63,8 @@ Clone this repository and install the required packages using the requirements f
 ```bash
 !python /content/OphNet-benchmark/data_processing/csv_to_tridet_json.py \
   --csv /content/drive/MyDrive/kaggle/APTOS/APTOS_train-val_annotation.csv \
-  --out /content/OphNet-benchmark/baselines/task2/dataset/tal_annotations/OphNet2024_phase.json
+  --out /content/OphNet-benchmark/baselines/task2/dataset/tal_annotations/OphNet2024_phase.json \
+  --fps-csv /content/drive/MyDrive/kaggle/APTOS/meta/video_fps.csv
 ```
 
 3. Alternatively, you can train the ActionFormer baseline:
