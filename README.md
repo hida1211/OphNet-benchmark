@@ -29,10 +29,21 @@ Clone this repository and move into the working directory:
 ```
 All commands below assume the code lives in `/content/OphNet-benchmark`.
 
+### Prerequisites
+
+This project has been tested with **Python 3.11** and **PyTorch 2.6**
+(CUDA 12.4). Install PyTorch first (replace the URL if you prefer the CPU
+build):
+
+```bash
+pip install torch==2.6.0 --extra-index-url https://download.pytorch.org/whl/cu124
+```
+
 ------------------------------------
 ## Installation
 
-Install the required Python packages and compile the C++ extension:
+After installing PyTorch, install the remaining Python packages and compile the
+C++ extension:
 
 ```bash
 !pip install -r /content/OphNet-benchmark/baselines/task2/requirements.txt
