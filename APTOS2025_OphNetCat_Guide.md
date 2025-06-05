@@ -67,7 +67,6 @@ DATASET_ROOT=/content/drive/MyDrive/kaggle/APTOS
 ```bash
 !python /content/OphNet-benchmark/data_processing/csv_to_tridet_json.py \
   --csv /content/drive/MyDrive/kaggle/APTOS/APTOS_train-val_annotation.csv \
-  --out $DATASET_ROOT/tal_annotations/OphNet2024_phase.json \
   --fps-csv /content/drive/MyDrive/kaggle/APTOS/meta/video_fps.csv
 ```
 
