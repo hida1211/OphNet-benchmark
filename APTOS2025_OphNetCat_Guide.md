@@ -51,12 +51,15 @@ Clone this repository and install the required packages using the requirements f
 ```bash
 !ln -s /content/drive/MyDrive/kaggle/APTOS/features_vmae224_b \
       /content/OphNet-benchmark/dataset/features/videomae
+
+# convenient shorthand for later commands
+DATASET_ROOT=/content/drive/MyDrive/kaggle/APTOS
 ```
    Then launch the TriDet trainer:
 ```bash
 !python /content/OphNet-benchmark/baselines/task2/talnets/TriDet/train.py \
     --config /content/OphNet-benchmark/baselines/task2/talnets/TriDet/configs/medical_videomae_phase.yaml \
-   --dataset-root /content/drive/MyDrive/kaggle/APTOS \
+   --dataset-root $DATASET_ROOT \
    --output baseline
 ```
    Edit the configuration file if your dataset paths differ.
@@ -64,7 +67,7 @@ Clone this repository and install the required packages using the requirements f
 ```bash
 !python /content/OphNet-benchmark/data_processing/csv_to_tridet_json.py \
   --csv /content/drive/MyDrive/kaggle/APTOS/APTOS_train-val_annotation.csv \
-  --out /content/drive/MyDrive/kaggle/APTOS/tal_annotations/OphNet2024_phase.json \
+  --out $DATASET_ROOT/tal_annotations/OphNet2024_phase.json \
   --fps-csv /content/drive/MyDrive/kaggle/APTOS/meta/video_fps.csv
 ```
 
