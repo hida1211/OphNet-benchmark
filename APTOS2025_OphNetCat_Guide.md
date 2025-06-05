@@ -56,6 +56,7 @@ Clone this repository and install the required packages using the requirements f
 ```bash
 !python /content/OphNet-benchmark/baselines/task2/talnets/TriDet/train.py \
     --config /content/OphNet-benchmark/baselines/task2/talnets/TriDet/configs/medical_videomae_phase.yaml \
+   --dataset-root /content/drive/MyDrive/kaggle/APTOS \
    --output baseline
 ```
    Edit the configuration file if your dataset paths differ.
@@ -63,7 +64,7 @@ Clone this repository and install the required packages using the requirements f
 ```bash
 !python /content/OphNet-benchmark/data_processing/csv_to_tridet_json.py \
   --csv /content/drive/MyDrive/kaggle/APTOS/APTOS_train-val_annotation.csv \
-  --out /content/OphNet-benchmark/baselines/task2/dataset/tal_annotations/OphNet2024_phase.json
+  --out /content/drive/MyDrive/kaggle/APTOS/tal_annotations/OphNet2024_phase.json
 ```
 
 3. Alternatively, you can train the ActionFormer baseline:
