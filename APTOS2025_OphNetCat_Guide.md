@@ -120,3 +120,18 @@ The official metrics are:
 
 See the challenge description for full details of how TP, FP and FN are computed.
 
+## 7. Evaluating Predictions
+
+After generating a CSV containing a `Predict_phase_id` column, you can compute
+the official metrics locally using `evaluate_predictions.py`:
+
+```bash
+python evaluate_predictions.py \
+  --annotation /content/drive/MyDrive/kaggle/APTOS/APTOS_train-val_annotation.csv \
+  --pred pred_val2.csv \
+  --out metrics.json
+```
+
+The script prints the Rank Score and saves all metrics to the specified output
+file.
+
